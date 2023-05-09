@@ -1,0 +1,112 @@
+syntax="proto3";
+
+
+package liga;
+
+service LigaService {
+    // liga
+    rpc CreateLiga(LigaRequest) returns (LigaResponse) {}
+    rpc GetLigaById(IdRequest) returns (LigaResponse) {}
+    rpc GetAllLigas(AllLigaRequest) returns (Ligas){}
+    rpc DeleteLiga(IdRequest) returns (LigaResponse) {}
+
+    // game
+    rpc CreateGame(GameRequest) returns (GameResponse) {}
+    rpc GetGameById(IdRequest) returns (GameResponse) {}
+    rpc GetAllGames(AllGameRequest) returns (Games){}
+    rpc DeleteGame(IdRequest) returns (GameResponse) {}
+
+    // Club
+    rpc CreateClub(ClubRequest) returns (ClubResponse) {}
+    rpc GetClubById(IdRequest) returns (ClubResponse) {}
+    rpc GetAllClubs(AllClubRequest) returns (Clubs){}
+    // rpc DeleteClub(IdRequest) returns (ClubResponse) {}
+}
+
+
+// liga
+message AllLigaRequest{
+    int64 page = 1;
+    int64 limit = 2;
+}
+
+message Ligas{
+    repeated LigaResponse ligas = 1;
+}
+
+message LigaResponse {
+    int64 id = 1;
+    string name = 2;
+    string created_at = 4;
+    string updated_at = 5;
+}
+
+message LigaRequest {
+    string name = 1;
+}
+
+message IdRequest {
+    int64 id = 1;
+}
+
+// Game
+message AllGameRequest{
+    int64 page = 1;
+    int64 limit = 2;
+}
+
+message Games{
+    repeated GameResponse Games = 1;
+}
+
+message GameResponse {
+    int64  id = 1;
+    string time = 2;
+    bool   condtion = 3;
+    int64  first_team_id = 4;
+    int64  second_team_id = 5;
+    int64  result_first_team = 6;
+    int64  result_second_team = 7;
+    int64  first_team_point = 8;
+    int64  second_team_point = 9;
+    int64  liga_id = 10;
+    string created_at = 11;
+    string updated_at = 12;
+}
+
+message GameRequest {
+    string time = 1;
+    bool condtion = 2;
+    int64 first_team_id = 3;
+    int64 second_team_id = 4;
+    int64 result_first_team = 5;
+    int64 result_second_team = 6;
+    int64 first_team_point = 7;
+    int64 second_team_point = 8;
+    int64 liga_id = 9;
+}
+
+// club
+
+message AllClubRequest{
+    int64 page = 1;
+    int64 limit = 2;
+}
+
+message Clubs{
+    repeated ClubResponse Clubs = 1;
+}
+
+message ClubResponse {
+    int64  id = 1;
+    string name = 2;
+    int64   points = 3;
+    string created_at = 4;
+    string updated_at = 5;
+}
+
+message ClubRequest {
+    string name = 1;
+    int64   liga_id = 2;
+    int64   points = 3;
+}

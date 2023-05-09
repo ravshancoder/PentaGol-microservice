@@ -1,0 +1,807 @@
+definitions:
+  models.Admin:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.AdminRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+  models.ClubRequest:
+    properties:
+      name:
+        type: string
+      points:
+        type: integer
+    type: object
+  models.ClubResponse:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      points:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  models.Clubs:
+    properties:
+      clubs:
+        items:
+          $ref: '#/definitions/models.ClubResponse'
+        type: array
+    type: object
+  models.Error:
+    properties:
+      message:
+        type: string
+    type: object
+  models.GameRequest:
+    properties:
+      condition:
+        type: boolean
+      first_team_id:
+        type: integer
+      liga_id:
+        type: integer
+      result_first_team:
+        type: integer
+      result_second_team:
+        type: integer
+      second_team_id:
+        type: integer
+      time:
+        type: string
+    type: object
+  models.GameResponse:
+    properties:
+      condition:
+        type: boolean
+      created_at:
+        type: string
+      first_team_id:
+        type: integer
+      first_team_point:
+        type: integer
+      id:
+        type: integer
+      liga_id:
+        type: integer
+      result_first_team:
+        type: integer
+      result_second_team:
+        type: integer
+      second_team_id:
+        type: integer
+      second_team_point:
+        type: integer
+      time:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.Games:
+    properties:
+      games:
+        items:
+          $ref: '#/definitions/models.GameResponse'
+        type: array
+    type: object
+  models.LigaRequest:
+    properties:
+      name:
+        type: string
+    type: object
+  models.LigaResponse:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.Ligas:
+    properties:
+      ligas:
+        items:
+          $ref: '#/definitions/models.LigaResponse'
+        type: array
+    type: object
+  models.LoginReq:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  models.Post:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      img_url:
+        type: string
+      title:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.PostRequest:
+    properties:
+      description:
+        type: string
+      img_url:
+        type: string
+      title:
+        type: string
+    type: object
+  models.Posts:
+    properties:
+      users:
+        items:
+          $ref: '#/definitions/models.Post'
+        type: array
+    type: object
+  models.StandartErrorModel:
+    properties:
+      error:
+        $ref: '#/definitions/models.Error'
+    type: object
+  models.UpdatePostRequest:
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      img_url:
+        type: string
+      title:
+        type: string
+    type: object
+info:
+  contact: {}
+  title: Swagger for admin api
+paths:
+  /v1/admin:
+    post:
+      consumes:
+      - application/json
+      description: This api creates a admin
+      parameters:
+      - description: Create Admin
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.AdminRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Admin'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: create admin
+      tags:
+      - Admin
+  /v1/admin/{id}:
+    get:
+      consumes:
+      - application/json
+      description: This api gets a admin by id
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Admin'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: get admin by id
+      tags:
+      - Admin
+  /v1/club:
+    post:
+      consumes:
+      - application/json
+      description: This api creates a club
+      parameters:
+      - description: CreateClub
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.ClubRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ClubResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: create club
+      tags:
+      - Club
+  /v1/club/{id}:
+    get:
+      consumes:
+      - application/json
+      description: This api gets a Club by id
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ClubResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: get club by id
+      tags:
+      - Club
+  /v1/clubs:
+    get:
+      consumes:
+      - application/json
+      description: This api gets all clubs
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        required: true
+        type: integer
+      - description: Page
+        in: query
+        name: page
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Clubs'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: get all clubs
+      tags:
+      - Club
+  /v1/game:
+    post:
+      consumes:
+      - application/json
+      description: This api creates a game
+      parameters:
+      - description: CreateGame
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.GameRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GameResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: create game
+      tags:
+      - Game
+  /v1/game/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This api deletes a game
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GameResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: delete game
+      tags:
+      - Game
+    get:
+      consumes:
+      - application/json
+      description: This api gets a game by id
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GameResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: get game by id
+      tags:
+      - Game
+  /v1/games:
+    get:
+      consumes:
+      - application/json
+      description: This api gets all games
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        required: true
+        type: integer
+      - description: Page
+        in: query
+        name: page
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Games'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: get all games
+      tags:
+      - Game
+  /v1/liga:
+    post:
+      consumes:
+      - application/json
+      description: This api creates a liga
+      parameters:
+      - description: CreateLiga
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.LigaRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.LigaResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: create liga
+      tags:
+      - Liga
+  /v1/liga/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This api deletes a liga
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.LigaResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: delete liga
+      tags:
+      - Liga
+    get:
+      consumes:
+      - application/json
+      description: This api gets a Liga by id
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.LigaResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: get liga by id
+      tags:
+      - Liga
+  /v1/ligas:
+    get:
+      consumes:
+      - application/json
+      description: This api gets all ligas
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        required: true
+        type: integer
+      - description: Page
+        in: query
+        name: page
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Ligas'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: get all ligas
+      tags:
+      - Liga
+  /v1/login:
+    post:
+      consumes:
+      - application/json
+      description: this api login admin
+      parameters:
+      - description: data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginReq'
+      produces:
+      - application/json
+      responses: {}
+      summary: login admin api
+      tags:
+      - Admin
+  /v1/post:
+    post:
+      consumes:
+      - application/json
+      description: This api creates a post
+      parameters:
+      - description: CreatePost
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.PostRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Post'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: create post
+      tags:
+      - Post
+  /v1/post/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: This api deletes a post
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Post'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: delete post
+      tags:
+      - Post
+    get:
+      consumes:
+      - application/json
+      description: This api gets a post by id
+      parameters:
+      - description: Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Post'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: get post by id
+      tags:
+      - Post
+    put:
+      consumes:
+      - application/json
+      description: This api updates a post
+      parameters:
+      - description: UpdatePost
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdatePostRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Post'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: update post
+      tags:
+      - Post
+  /v1/posts:
+    get:
+      consumes:
+      - application/json
+      description: This api gets all posts
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        required: true
+        type: integer
+      - description: Page
+        in: query
+        name: page
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Posts'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.StandartErrorModel'
+      security:
+      - ApiKeyAuth: []
+      summary: get all posts
+      tags:
+      - Post
+securityDefinitions:
+  ApiKeyAuth:
+    description: This is a admin service api.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

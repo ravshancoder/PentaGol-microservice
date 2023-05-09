@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS ligas (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(60),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    deleted_at TIME
+);

@@ -1,0 +1,54 @@
+syntax="proto3";
+
+
+package post;
+
+service PostService {
+    rpc CreatePost(PostRequest) returns (PostResponse) {}
+    rpc GetPostById(IdRequest) returns (PostResponse) {}
+    rpc GetAllPosts(AllPostRequest) returns (Posts){}
+    rpc SearchByTitle(Search) returns (Posts) {}
+    rpc UpdatePost(UpdatePostRequest) returns (PostResponse) {}
+    rpc DeletePost(IdRequest) returns (PostResponse) {}
+    rpc GetNews(AllPostRequest) returns(Posts){}
+}
+
+message AllPostRequest{
+    int64 page = 1;
+    int64 limit = 2;
+}
+
+message PostResponse {
+    int64 id = 1;
+    string title = 2;
+    string description = 3;
+    string img_url = 4;
+    string created_at = 5;
+    string updated_at = 6;
+}
+
+message PostRequest {
+    string title = 1;
+    string description = 2;
+    string img_url = 5;
+}
+
+message UpdatePostRequest {
+    string title = 1;
+    string description = 2;
+    string img_url = 3;
+    int64 id = 4;
+}
+
+message IdRequest {
+    int64 id = 1;
+}
+
+message Posts {
+    repeated PostResponse posts = 1;
+}
+
+message Search {
+    string search = 1;
+}
+
